@@ -9,12 +9,12 @@ authorization do
   # G U E S T
   role :guest do
     # add permissions for guests here, e.g.
-    has_permission_on :collections, :to => :read do
+    has_permission_on :collections, :to => [:manage, :create] do
       if_attribute :status => "Active",
 	:privacy => "Public"
     end
 
-    has_permission_on :taxonomies, :to => :read do
+    has_permission_on :taxonomies, :to => [:manage, :create] do
       if_attribute :privacy => "Public"
     end
     # PLEASE LEAVE THIS - Even though "Ontologies" have been renamed "Taxonomies" this is still
@@ -23,7 +23,7 @@ authorization do
       if_attribute :privacy => "Public"
     end
 
-   has_permission_on [:categories, :posts], :to => :read do
+   has_permission_on [:categories, :posts], :to => [:manage, :create] do
       if_attribute :user_id => is {1}  # Production user_id is "1"
       if_attribute :user_id => is {24} # Dev SQLite databases use "24"
    end

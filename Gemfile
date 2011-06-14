@@ -8,7 +8,10 @@ gem 'rails', '3.0.7'
 gem 'sqlite3'
 gem "ar_fixtures", "~> 0.0.4"
 gem "acts_as_tree", "~> 0.1.1"
-# gem "restful_authentication", "~> 1.1.6"
+# gem 'rubyist-aasm', :require => 'aasm'
+gem "declarative_authorization"
+gem "authlogic"
+# gem "restful_authentication", "2.0.0.beta1", :git => "git://github.com/Satish/restful-authentication.git", :branch => "rails3",  
 # Use unicorn as the web server
 # gem 'unicorn'
 
