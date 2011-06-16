@@ -99,9 +99,9 @@
                       <tr>
                         <td align="left" valign="middle" <% if session[:current_location] == "welcome" %> bgcolor="#F3FFCE"<% end %>>
                           <% if session[:current_location] == "welcome" %>
-                            <%= link_to '<img src="/images/Logo_Darker_w_High_Pass_Emboss.gif" border="0">', :controller => :welcome %>
+                            <%= link_to logo, root_path %>
                           <% else %>
-                            <%= link_to '<img src="/images/Logo_Whiter_w_High_Pass_Emboss.gif" border="0">', :controller => :welcome %>
+                            <%= link_to logo, root_path %>
                           <% end %>
                         </td>
                       </tr>

@@ -21,8 +21,8 @@ Interethos::Application.routes.draw do
   match '/activate/:id' => 'users#activate', :as => :activate
   match '/logout' => 'sessions#destroy', :as => :logout
   resource :session
-  match '/' => 'welcome#index'
-  match '/:controller(/:action(/:id))'
+  root :to => 'welcome#index'
+  # match '/:controller(/:action(/:id))'
 end
 
 # ActionController::Routing::Routes.draw do |map|

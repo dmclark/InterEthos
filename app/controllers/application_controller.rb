@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
    helper :all # include all helpers, all the time
+   require File.join(Rails.root, 'lib', 'authenticated_system.rb')
+ include AuthenticatedSystem 
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password

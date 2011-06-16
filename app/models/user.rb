@@ -1,24 +1,17 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  include Authentication
-  include Authentication::ByPassword
-  include Authentication::ByCookieToken
-  include Authorization::StatefulRoles
-
+  acts_as_authentic
 
   validates :login, :presence   => true,
                     :uniqueness => true,
-                    :length     => { :within => 3..40 },
-                    :format     => { :with => Authentication.login_regex, :message => Authentication.bad_login_message }
+                    :length     => { :within => 3..40 }
 
-  validates :name,  :format     => { :with => Authentication.name_regex, :message => Authentication.bad_name_message },
-                    :length     => { :maximum => 100 },
+  validates :name,  :length     => { :maximum => 100 },
                     :allow_nil  => true
 
   validates :email, :presence   => true,
                     :uniqueness => true,
-                    :format     => { :with => Authentication.email_regex, :message => Authentication.bad_email_message },
                     :length     => { :within => 6..100 }
 
   
