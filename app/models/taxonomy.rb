@@ -3,8 +3,7 @@ class Taxonomy < ActiveRecord::Base
 
   belongs_to :language
 
-  has_many :internationalizations, :source => :taxonomy, :order => ':name'
-      #, :foreign_key => 'internationalization_id', :class_name => "Internationalizations", 
+  has_many :internationalizations, :source => :taxonomy, :foreign_key => 'internationalization_id', :class_name => "Internationalizations" 
 
   has_many :taxonomy_users
 	  has_many :users, :through => :taxonomy_users

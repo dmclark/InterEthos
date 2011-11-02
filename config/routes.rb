@@ -1,111 +1,25 @@
 Interethos::Application.routes.draw do
-  resources :roles
-  resources :posts
-  resources :topics
-  match '/logout' => 'sessions#destroy', :as => :logout
-  match '/login' => 'sessions#new', :as => :login
+  get "activations/create"
+
   match '/register' => 'users#create', :as => :register
-  match '/signup' => 'users#new', :as => :signup
-  resources :users
   resources :categories
   resources :collections
   resources :collections_users
   resources :languages
   resources :relationships
+  resources :roles
+  resources :posts
   resources :taxonomies
-  resources :ontologies
   resources :taxonomies_users
   resources :teams
   resources :teams_users
+  resources :topics
   resources :validations
-  match '/activate/:id' => 'users#activate', :as => :activate
-  match '/logout' => 'sessions#destroy', :as => :logout
-  resource :session
+  resources :users
+  resources :user_sessions
+    match '/activate/:activation_code' => 'activations#create'
+    match 'login' => 'user_sessions#new', :as => :login
+    match 'logout' => 'user_sessions#destroy', :as => :logout
   root :to => 'welcome#index'
-  # match '/:controller(/:action(/:id))'
+  match '/:controller(/:action(/:id))'
 end
-
-# ActionController::Routing::Routes.draw do |map|
-#   map.resources :roles
-#   map.resources :posts
-# 
-#   map.resources :topics
-# 
-#   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-#   map.login '/login', :controller => 'sessions', :action => 'new'
-#   map.register '/register', :controller => 'users', :action => 'create'
-#   map.signup '/signup', :controller => 'users', :action => 'new'
-#   
-#   map.resources :categories
-# 
-#   # map.resources :category_collections
-# 
-#   map.resources :collections
-# 
-#   map.resources :collections_users
-# 
-#   map.resources :languages
-# 
-#   map.resources :relationships
-# 
-#   map.resources :taxonomies
-#       # Leave the following. Although "Ontologies" have been renamed to "Taxonomies" this route entry is needed so that dataloads for migrations from GitHub will run.
-#       map.resources :ontologies
-# 
-#   map.resources :taxonomies_users
-# 
-#   map.resources :teams
-# 
-#   map.resources :teams_users
-# 
-#   map.resources :validations
-# 
-#   map.activate '/activate/:id', :controller => 'users', :action => 'activate'
-# 
-#   map.logout '/logout', :controller => 'sessions', :action => 'destroy'  
-#   map.resource :session 
-#   # The priority is based upon order of creation: first created -> highest priority.
-# 
-#   # Sample of regular route:
-#   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-#   # Keep in mind you can assign values other than :controller and :action
-# 
-#   # Sample of named route:
-#   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-#   # This route can be invoked with purchase_url(:id => product.id)
-# 
-#   # Sample resource route (maps HTTP verbs to controller actions automatically):
-#   #   map.resources :products
-# 
-#   # Sample resource route with options:
-#   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
-# 
-#   # Sample resource route with sub-resources:
-#   #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-#   
-#   # Sample resource route with more complex sub-resources
-#   #   map.resources :products do |products|
-#   #     products.resources :comments
-#   #     products.resources :sales, :collection => { :recent => :get }
-#   #   end
-# 
-#   # Sample resource route within a namespace:
-#   #   map.namespace :admin do |admin|
-#   #     # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
-#   #     admin.resources :products
-#   #   end
-# 
-#   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-#   map.root :controller => "welcome"
-# 
-#   # See how all your routes lay out with "rake routes"
-# 
-#   # Install the default routes as the lowest priority.
-#   # Note: These default routes make all actions in every controller accessible via GET requests. You should
-#   # consider removing or commenting them out if you're using named routes and resources.
-#   map.connect ':controller/:action/:id'
-#   
-#   # InterEthos note: The following enables ":format => :xml" calls
-#   map.connect ':controller/:action/:id.:format'
-# 
-# end

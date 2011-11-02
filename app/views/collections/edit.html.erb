@@ -1,6 +1,6 @@
 <% @title = 'Edit Collection' %>
 
-<% form_for(@collection) do |f| %>
+<%= form_for(@collection) do |f| -%>
 	<%= f.error_messages %>
 
     <%= hidden_field_tag("collection[user_id]", current_user.id) %>
@@ -91,5 +91,5 @@
     </table>
 
 	<p><%= f.submit 'Update' %>
-<% end %>
+<% end -%>
 &nbsp;&nbsp;|&nbsp;&nbsp;<%= link_to 'Back', collections_path %></p>

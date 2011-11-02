@@ -19,7 +19,7 @@
       <%#   W H I C H   L I N K S   %>
       <% navbar_link_array = Array.new %>
       <% if authorized? %>
-        <% if current_user.roles.to_s == "admin" %>
+		<% if User.find_all_by_id(current_user.id, :order => "first_name").include?('admin') %>
           <% navbar_link_array = [root_path, taxonomies_path, collections_path, posts_path, topics_path, users_path, logout_path] %><%# xxx %>
         <% else %>
           <% navbar_link_array = [root_path, taxonomies_path, collections_path, posts_path, logout_path] %>
@@ -110,7 +110,11 @@
                     <table align="center" cellpadding="10" cellspacing="0" border="0" height="100%" width="100%">
                       <tr>
                         <td align="left" valign="middle">
-			  <%= link_to navbar_link.delete("/"), navbar_link %>
+			  <% if navbar_link.delete("/") != "posts" %>
+			    <%= link_to navbar_link.delete("/"), navbar_link %>
+			  <% else %>
+			    <%= link_to "help <i>(noun)</i><br />or<br />help <i>(verb)</i>".html_safe, navbar_link %>
+			  <% end %>
                         </td>
                       </tr>
                     </table>
@@ -139,7 +143,7 @@
                           <td align="right" valign="bottom">
                             <span style="font-size:12px; color:#CCCCCC; font-style:italic"> 
                               <% if authorized? %>
-                                <%= current_user.full_name %><% if authorized? %>&nbsp;<%= link_to '<img src="/images/profile.png" border="0">', edit_user_path(current_user.id) %><% end %>
+                                <%= current_user.first_name + " " + current_user.last_name %><% if authorized? %>&nbsp;<%= link_to '<img src="/images/profile.png" border="0">'.html_safe, edit_user_path(current_user.id) %><% end %>
                               <% else %>
                                 guest
                               <% end %>
@@ -187,6 +191,7 @@
   </td></tr>
   </table>
   &nbsp;<br />
+  <table><tr><td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a></td><td><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Dataset" property="dct:title" rel="dct:type">InterEthos</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://interethos.net" property="cc:attributionName" rel="cc:attributionURL">Joseph Swithin Shortlidge</a> is licensed under a <br /><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.</td></tr></table>
 </td></tr>
 </table>
 

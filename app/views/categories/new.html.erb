@@ -1,6 +1,6 @@
 <% @title = 'New Category' %>
 
-<% form_for(@category) do |f| %>
+<%= form_for(@category) do |f| -%>
   <%= f.error_messages %>
 
   <p><%= label(:taxonomy, :id, 'Taxonomy') %><br />
@@ -30,10 +30,10 @@
   <p><%= f.label :category_name %><br />
     <% if !params[:parent_id] %>
       <%= text_field_tag("category[name]", @taxonomy.name) %><br />
-      <%= indent %><strong>Special:</strong> <em>You are about to set the top-level Category for your new Taxonomy.<br />
-      <%= indent %><%= indent %>There can only be one top-level Category for a Taxonomy.<br />
-      <%= indent %><%= indent %>It should be given a name that is similar to the name of the Taxonomy.<br />
-      <%= indent %><%= indent %>So we have entered that name above.</em>
+      <%= indent.html_safe %><strong>Special:</strong> <em>You are about to set the top-level Category for your new Taxonomy.<br />
+      <%= indent.html_safe %><%= indent.html_safe %>There can only be one top-level Category for a Taxonomy.<br />
+      <%= indent.html_safe %><%= indent.html_safe %>It should be given a name that is similar to the name of the Taxonomy.<br />
+      <%= indent.html_safe %><%= indent.html_safe %>So we have entered that name above.</em>
     <% else %>
       <%= f.text_field :name %>
     <% end %>
@@ -53,7 +53,7 @@
   
   <p><%= f.submit 'Create' %></p>
 
-<% end %>
+<% end -%>
 
 <%= link_to 'Back', taxonomy_path(@taxonomy.id) %>
 <%= javascript_tag "$('category_name').focus()" %>

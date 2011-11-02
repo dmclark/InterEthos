@@ -1,0 +1,7 @@
+%h1 Roles
+= render 'role_list'
+%br
+= form_for [:admin, @new_role] do |f|
+  = f.label :name, 'Name of new role:'
+  = f.text_field :name
+  = f.submit

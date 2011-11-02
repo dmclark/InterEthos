@@ -9,12 +9,12 @@ authorization do
   # G U E S T
   role :guest do
     # add permissions for guests here, e.g.
-    has_permission_on :collections, :to => [:manage, :create] do
+    has_permission_on :collections, :to => [:read] do
       if_attribute :status => "Active",
 	:privacy => "Public"
     end
 
-    has_permission_on :taxonomies, :to => [:manage, :create] do
+    has_permission_on :taxonomies, :to => [:read] do
       if_attribute :privacy => "Public"
     end
     # PLEASE LEAVE THIS - Even though "Ontologies" have been renamed "Taxonomies" this is still
@@ -35,6 +35,9 @@ authorization do
      # can be read from the newly created database record.
    # ACTUALLY the preceding ":read" may not be needed... please test
    has_permission_on :users, :to => [:create, :read, :activate]
+   has_permission_on :roles, :to => [:index, :create, :destroy]
+   has_permission_on :user_sessions, :to => [:create, :update]
+
    
    # 2010/08/12 New... but Josh does not understand it...
    has_permission_on :authorization_rules, :to => :read
@@ -145,7 +148,7 @@ authorization do
     # ---------
     # U S E R S
         # Owners can "manage" their own profile.
-        has_permission_on [:users] do
+        has_permission_on [:users, :roles] do
           to :manage
           if_attribute :id => is {user.id}
         end
@@ -158,7 +161,7 @@ authorization do
     # Admins inherit all the permissions of Owners.
         includes :guest
         
-        has_permission_on [:collections, :category_collections, :collection_users, :languages, :taxonomies_users, :relationships, :teams, :teams_users, :users, :validations], :to => [:manage, :create]
+        has_permission_on [:collections, :category_collections, :collection_users, :languages, :taxonomies_users, :relationships, :teams, :teams_users, :users, :roles, :validations], :to => [:manage, :create]
         has_permission_on [:taxonomies], :to => [:manage, :create, :internationalize]
         has_permission_on [:categories], :to => [:manage, :create, :translate]
 

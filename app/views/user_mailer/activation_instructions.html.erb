@@ -1,0 +1,7 @@
+<%= @user.first_name %> <%= @user.last_name %>,
+
+<p>Thank you for creating an account! Click the url below to activate your account!<p>
+
+<p>http://localhost:3000/activate/<%= @user.perishable_token %></p>
+
+<p>If the URL above does not work try copying and pasting it into your browser. If you continue to have problem, please feel free to contact us.<p>

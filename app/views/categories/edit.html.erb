@@ -1,6 +1,6 @@
 <% @title = 'Edit Category' %>
 
-<% form_for(@category) do |f| %>
+<%= form_for(@category) do |f| -%>
   <%= f.error_messages %>
 
   <p><%= label(:taxonomy, :id, 'Taxonomy') %><br />
@@ -10,7 +10,7 @@
   <%= hidden_field_tag("category[translation_id]", params[:translation_id]) %>
 
   <p><%= f.label :parent_category %><br />
-  <%= tree_select(Category.find(:all, :conditions => "parent_id = 1"), 'category', 'parent_id', @category.parent) %></p>
+  <%= tree_select(Category.find(:all, :conditions => "parent_id = 1"), 'category', 'parent_id', @category.parent).html_safe %></p>
 
   <p><%= f.label :category_name %><br />
     <%= f.text_field :name %></p>
@@ -32,11 +32,11 @@
 		  <% else %>
 			<% for relationship in @category.relationships %>
 			  <li><%=h relationship.synonym.name %>
-			   <%= link_to '<img src="/images/remove.jpg" border="0">', relationship_path(relationship.id), :confirm => 'Are you sure?', :method => :delete %>
-			   <%= link_to '<img src="/images/delta.jpg" border="0">', edit_relationship_path(relationship.id), :method => :get %></li>
+			   <%= link_to '<img src="/images/remove.jpg" border="0">'.html_safe, relationship_path(relationship.id), :confirm => 'Are you sure?', :method => :delete %>
+			   <%= link_to '<img src="/images/delta.jpg" border="0">'.html_safe, edit_relationship_path(relationship.id), :method => :get %></li>
 			<% end %>
 		  <% end %>
-		  <li><em>add new...</em> <%= indent %><%= link_to '<img src="/images/add.jpg" border="0">', new_relationship_path(:category_id => @category.id) %></li>
+        <%= tree_multiple_select('category', 'synonym_ids', Category.with_permissions_to(:read).find(:all, :conditions => ["parent_id = ?", 170], :order => "categories.name ASC"), :id, :name, :outer_class => 'multiple_select', :inner_class => 'multiple_select_checkbox') %>
 	  </ul>
 	</p>
 	
@@ -52,7 +52,7 @@
 		  <% end %>
 	  </ul>
 	</p>
-<% end %>
+<% end -%>
 
 <%= javascript_tag "$('category_name').focus()" %>
 <%= link_to 'Show', @category %> |

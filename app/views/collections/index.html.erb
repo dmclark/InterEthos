@@ -1,11 +1,11 @@
 <% @title = 'Collections' %>
 
-<% form_tag collections_path, :method => 'get' do %>
+<%= form_tag collections_path, :method => 'get' do -%>
   <p>
     <%= text_field_tag :search, params[:search] %>
     <%= submit_tag "Search", :name => nil %>
   </p>
-<% end %>
+<% end -%>
 
 <table border=0>
   <tr>
@@ -20,13 +20,13 @@
     <td><% if permitted_to? :show, collection %>&nbsp;<% else %><strong>(<%=h collection.status %>)<strong><% end %></td>
     <td>
       <% if !collection.url_about.empty? %>
-        <%= link_to '<img src="/images/database.gif" border="0">', collection.url_about, {:target => "_blank"} if permitted_to? :show, collection %>
+        <%= link_to '<img src="/images/database.gif" border="0">'.html_safe, collection.url_about, {:target => "_blank"} if permitted_to? :show, collection %>
       <% end %>
     </td>
-    <td><%= link_to '<img src="/images/eye.jpg" border="0">', collection_path(collection) if permitted_to? :show, collection %></td>
-    <td><%= link_to '<img src="/images/delta.jpg" border="0">', edit_collection_path(collection) if permitted_to? :edit, collection %></td>
-    <td><%= link_to '<img src="/images/remove.jpg" border="0">', collection, :confirm => 'Are you sure?', :method => :delete if permitted_to? :delete, collection %></td>
-    <td><%= link_to '<img src="/images/newPage.gif" border="0">', new_post_path(:collection_id => collection.id) %></td>
+    <td><%= link_to '<img src="/images/eye.jpg" border="0">'.html_safe, collection_path(collection) if permitted_to? :show, collection %></td>
+    <td><%= link_to '<img src="/images/delta.jpg" border="0">'.html_safe, edit_collection_path(collection) if permitted_to? :edit, collection %></td>
+    <td><%= link_to '<img src="/images/remove.jpg" border="0">'.html_safe, collection, :confirm => 'Are you sure?', :method => :delete if permitted_to? :delete, collection %></td>
+    <td><%= link_to '<img src="/images/newPage.gif" border="0">'.html_safe, new_post_path(:collection_id => collection.id) %></td>
   </tr>
 <% end %>
 </table>

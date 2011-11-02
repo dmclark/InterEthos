@@ -4,7 +4,7 @@ class CreateCategories < ActiveRecord::Migration
       t.string :name
       t.string :meta
       t.references :parent
-      t.references :ontology
+      t.references :taxonomy
       t.references :user
 
       t.timestamps

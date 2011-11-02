@@ -1,0 +1,31 @@
+<% @title = 'Log In' %>
+
+<blockquote>
+  <p>Note: <em>You do not need to login if you are searching our public catalog. By logging in you will be able to add new Collections, and add new Categories to catalog them with.</em></p>
+
+  <p>Also, you can always access the system via "username=<strong>test</strong>" and "password=<strong>tester</strong>".</p>
+
+  <p>To create your own login click the "Sign up" link at the bottom of the page.</p>
+</blockquote>
+
+<%= form_for @user_session do |f| -%>
+	<p><%= label_tag 'username' %><br />
+	<%= f.text_field 'username' %></p>
+	
+	<p><%= label_tag 'password' %><br/>
+	<%= f.password_field 'password' %></p>
+	
+	<p><%= f.submit 'Log in' %></p>
+<% end -%>
+
+<%= javascript_tag "$('username').focus()" %>
+<%= link_to 'Register', new_user_path %> 
+
+<!--</td><td>
+
+<p>Please check your email.</p>
+
+An email has just been sent to you, which will need to verify receipt of, in order to login.
+
+
+</td></tr></table> -->

@@ -1,6 +1,6 @@
 <% @title = 'New Taxonomy' %>
 
-<% form_for(@taxonomy) do |f| %>
+<%= form_for(@taxonomy) do |f| -%>
 	<%= f.error_messages %>
 
 	<%= hidden_field_tag "taxonomy[user_id]", [current_user.id] %>
@@ -75,5 +75,5 @@
 	</tr>
     </table>
 	<p><%= f.submit 'Create' %>
-<% end %>
+<% end -%>
 &nbsp;&nbsp;|&nbsp;&nbsp;<%= link_to 'Back', taxonomies_path %></p>

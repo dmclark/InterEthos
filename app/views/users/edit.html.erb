@@ -9,54 +9,54 @@ The following two IF statements are an attempt to: %>
   <% if current_user.id == @user.id %>
     <% @title = 'Edit User' %>
     
-    <% form_for(@user) do |f| %>
+    <%= form_for(@user) do |f| -%>
       <%= f.error_messages %>
     
       <p><%= f.label :first_name %><br />
-	<%= f.text_field :first_name %></p>
+		<%= f.text_field :first_name %></p>
     
       <p><%= f.label :last_name %><br />
-	<%= f.text_field :last_name %></p>
+		<%= f.text_field :last_name %></p>
     
       <p><%= label_tag 'login', 'Username' %><br/>
-	<%= f.text_field :login %></p>
+		<%= f.text_field :username %></p>
     
       <p><%= label_tag 'password' %><br/>
-	<%= f.password_field :password %></p>
+		<%= f.password_field :password %></p>
     
       <p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
-	<%= f.password_field :password_confirmation %></p>
+		<%= f.password_field :password_confirmation %></p>
     
       <p><%= f.label :email %><br />
-	<%= f.text_field :email %></p>
+		<%= f.text_field :email %></p>
     
       <% if current_user.roles.to_s == "admin" %>
-	<p>
-	  <%= f.label :roles %><br />
-	  <%= f.select :roles, (controller.authorization_engine.roles + (@user.roles.to_a || [])).uniq, {}, {:multiple => true} %>
-	</p>
+		<p>
+		  <%= f.label :roles %><br />
+		  <%= f.select :roles, (controller.authorization_engine.roles + (@user.roles.to_a || [])).uniq, {}, {:multiple => true} %>
+		</p>
       <% end %>
     
       <p>
-	<%# for role in @roles_assignable %>
-	  <div>
-		<%# if @roles_assignable.length >= 2 %>
-		  <%#= check_box_tag "user[roles][]", role, @user_roles.include?(role) %>
-	    <%# else %>
-		      <%# Note: The "disabled" status of checkbox means that no form variable gets transferred, which is okay, as we do not want to update that field anyway. %>
-		  <%#= check_box_tag "user[roles][]", role, @user_roles.include?(role), :disabled => true %>
-	    <%# end %>
-	    <%#= role %>
-	  <%# end %>
+	  <%# for role in @roles_assignable %>
+		  <div>
+			<%# if @roles_assignable.length >= 2 %>
+			  <%#= check_box_tag "user[roles][]", role, @user_roles.include?(role) %>
+		    <%# else %>
+			      <%# Note: The "disabled" status of checkbox means that no form variable gets transferred, which is okay, as we do not want to update that field anyway. %>
+			  <%#= check_box_tag "user[roles][]", role, @user_roles.include?(role), :disabled => true %>
+		    <%# end %>
+		    <%#= role %>
+		  <%# end %>
 	    </div>
       </p>
     
       <p><%= label(:validation, :id, 'validation') %>
-	<%= collection_select(:user, :validation_id, Validation.find(:all), :id, :name, options = {}, html_options = {}) %></p>
+		<%= collection_select(:user, :validation_id, Validation.find(:all), :id, :name, options = {}, html_options = {}) %></p>
     
       <p><%= f.submit 'Update' %></p>
     
-    <% end %>
+    <% end -%>
     
     <%= link_to 'Show', @user %> |
     <%= link_to 'Back', users_path %>

@@ -1,0 +1,7 @@
+#RoleList
+  %h2 There #{is_pluralize(@roles.length, 'role')}
+  %ul
+    - @roles.each do |role|
+      %li
+        %b= role.name
+        [#{link_to 'x', [:admin, role], :method=>:delete, :confirm=>'You sure?'}]

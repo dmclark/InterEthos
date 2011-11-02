@@ -19,50 +19,55 @@
 <% @taxonomies = @taxonomies.find(:all).sort_by(&:name) %>
 
 <% @taxonomies.each do |taxonomy| %>
-  <% if taxonomy.internationalization_id.nil? %>
+  <% if taxonomy.status='beta' && taxonomy.internationalization_id.nil? %>
+    <% set_taxonomy_id=taxonomy.id %>
     <tr>
-      <td nowrap="nowrap"><%=h taxonomy.name %></td>
+      <td nowrap="nowrap">(<%= taxonomy.internationalization_id.nil? %>/<%=h taxonomy.id %>/<%=h taxonomy.internationalization_id %>)--<%=h taxonomy.name %></td>
       <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
       <td nowrap="nowrap"><%=h taxonomy.status %></td>
       <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
       <td nowrap="nowrap"><%=h taxonomy.privacy %></td>
       <td><% if permitted_to? :show, taxonomy %>&nbsp;<% else %><strong>(<%=h taxonomy.status %>)<strong><% end %></td>
       <td align="center">
-	<%= link_to '<img src="/images/eye.gif" border="0">', taxonomy if !permitted_to? :edit, taxonomy %>
-	<%= link_to '<img src="/images/delta.gif" border="0">', taxonomy if permitted_to? :edit, taxonomy %>
+        <%= link_to '<img src="/images/eye.gif" border="0">'.html_safe, taxonomy if !permitted_to? :edit, taxonomy %>
+        <%= link_to '<img src="/images/delta.gif" border="0">'.html_safe, taxonomy if permitted_to? :edit, taxonomy %>
       </td>
       <td><%#= link_to '<img src="/images/remove.gif" border="0">', taxonomy, :confirm => 'Are you sure?', :method => :delete if permitted_to? :delete, taxonomy %></td>
       <td>
-	  <%= link_to '<img src="/images/translate.gif" border="0">', new_taxonomy_path(:internationalization_id => taxonomy.id), :confirm => 'You are about to enable this Collection for internationalization. Once enabled, then you cannot modify existing categories nor their relationship "tree" structure. However, you can add new category "branches", but cannot modify even those new ones once created.', :method => :create  if permitted_to? :internationalize, taxonomy %>
+        <%= link_to '<img src="/images/translate.gif" border="0">'.html_safe, new_taxonomy_path(:internationalization_id => taxonomy.id)  if permitted_to? :internationalize, taxonomy %>
       </td>
       <td>
-          <td><%= link_to '<img src="/images/newPage.gif" border="0">', new_post_path(:taxonomy_id => taxonomy.id) %></td>
+        <td><%= link_to '<img src="/images/newPage.gif" border="0">'.html_safe, new_post_path(:taxonomy_id => taxonomy.id) if permitted_to? :create, @posts %></td>
       </td>
-
     </tr>
-  <% elsif !taxonomy.internationalization_id.nil? %>
+  <% end %>
+  <% @taxonomies.each do |i13n| %>
+    <% if !i13n.internationalization_id.nil? %>
+    <% if i13n.internationalization_id=set_taxonomy_id %>
       <tr>
-	<td nowrap="nowrap"><%= indent %><em><%=h taxonomy.name %></em></td>
-	<td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-	<td nowrap="nowrap"><%=h taxonomy.status %></td>
-	<td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-	<td nowrap="nowrap"><%=h taxonomy.privacy %></td>
-	<td><% if permitted_to? :show, taxonomy %>&nbsp;<% else %><strong>(<%=h taxonomy.status %>)<strong><% end %></td>
-	<td>
-	  &nbsp;
-	</td>
-	<td>
-	  &nbsp;
-	</td>
-	<td align="center">
-	  <%= link_to '<img src="/images/eye.gif" border="0">', taxonomy if !permitted_to? :edit, taxonomy %>
-	  <%= link_to '<img src="/images/delta.gif" border="0">', taxonomy if permitted_to? :edit, taxonomy %>
-	</td>
-	<td>
-	    <td><%= link_to '<img src="/images/newPage.gif" border="0">', new_post_path(:taxonomy_id => taxonomy.id) %></td>
-	</td>
+        <td nowrap="nowrap"><%= indent.html_safe %><em>(<%=h taxonomy.id %>/<%=h i13n.internationalization_id %>)**<%=h i13n.name %></em></td>
+        <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td nowrap="nowrap"><%=h i13n.status %></td>
+        <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td nowrap="nowrap"><%=h i13n.privacy %></td>
+        <td><% if permitted_to? :show, i13n %>&nbsp;<% else %><strong>(<%=h i13n.status %>)<strong><% end %></td>
+        <td>
+          &nbsp;
+        </td>
+        <td>
+          &nbsp;
+        </td>
+        <td align="center">
+          <%= link_to '<img src="/images/eye.gif" border="0">'.html_safe, i13n if !permitted_to? :edit, i13n %>
+          <%= link_to '<img src="/images/delta.gif" border="0">'.html_safe, i13n if permitted_to? :edit, i13n %>
+        </td>
+        <td>
+        <td><%= link_to '<img src="/images/newPage.gif" border="0">'.html_safe, new_post_path(:taxonomy_id => i13n.id) if permitted_to? :create, @posts %></td>
+        </td>
       </tr>
     <% end %>
+    <% end %>
+  <% end %>
 <% end %>
 </table>
 

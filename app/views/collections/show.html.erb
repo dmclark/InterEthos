@@ -32,14 +32,14 @@
 	  <ul>
 		<% for taxonomy in @collection.categories %>
 		  <li><%=h taxonomy.name %> 
-		  <%= link_to '<img src="/images/eye.jpg" border="0">', collection_path if permitted_to? :show, taxonomy %>
-    	  <%= link_to '<img src="/images/delta.jpg" border="0">', edit_collection_path(@collection) if permitted_to? :edit, taxonomy %>
-		  <%= link_to '<img src="/images/remove.jpg" border="0">', collection_path(taxonomy.id) if permitted_to? :delete, taxonomy, :confirm => 'Are you sure?', :method => :delete %></li>
+		  <%= link_to '<img src="/images/eye.jpg" border="0">'.html_safe, collection_path if permitted_to? :show, taxonomy %>
+    	  <%= link_to '<img src="/images/delta.jpg" border="0">'.html_safe, edit_collection_path(@collection) if permitted_to? :edit, taxonomy %>
+		  <%= link_to '<img src="/images/remove.jpg" border="0">'.html_safe, collection_path(taxonomy.id) if permitted_to? :delete, taxonomy, :confirm => 'Are you sure?', :method => :delete %></li>
 		<% end %>
 	  </ul>
   <% end %>
 
-  <%= indent %><%= link_to '<img src="/images/add.jpg" border="0">', new_collection_path(:collection_id => @collection.id) if permitted_to? :create, :collections %>
+  <%= indent.html_safe %><%= link_to '<img src="/images/add.jpg" border="0">'.html_safe, new_collection_path(:collection_id => @collection.id) if permitted_to? :create, :collections %>
 </p>
 
 <p>

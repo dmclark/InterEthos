@@ -33,12 +33,12 @@ class TaxonomiesController < ApplicationController
   # GET /taxonomies/new.xml
   def new
     # @taxonomy is created in before_filter
-	if params[:internationalization_id]
+	  if params[:internationalization_id]
       @internationalization = Taxonomy.find(params[:internationalization_id])
     end
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { render :action => "new" } # new.html.erb
       format.xml  { render :xml => @taxonomy }
     end
   end
